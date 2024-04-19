@@ -13,4 +13,4 @@ val homeModule = module {
 }
 
 
-fun applicationModules() = listOf(sharedModules, homeModule)
+fun applicationModules() = listOf(sharedModules, homeModule, networkModule)

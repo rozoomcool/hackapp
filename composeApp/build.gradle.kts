@@ -48,8 +48,10 @@ kotlin {
             implementation(libs.koin.android)
             implementation(libs.androidx.preference.ktx)
 
-            implementation ("com.squareup.retrofit2:retrofit:2.7.2")
-            implementation ("com.squareup.retrofit2:converter-gson:2.7.2")
+            implementation(libs.koin.android)
+            implementation(libs.androidx.preference.ktx)
+
+
         }
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -65,8 +67,10 @@ kotlin {
             implementation(libs.voyager.transitions)
             implementation(libs.voyager.screenmodel)
 
-            implementation ("com.squareup.retrofit2:retrofit:2.7.2")
-            implementation ("com.squareup.retrofit2:converter-gson:2.7.2")
+            implementation(libs.ktor.client.core)
+            implementation(libs.ktor.client.content.negotiation)
+            implementation(libs.ktor.client.logging)
+            implementation(libs.ktor.serialization.kotlinx.json)
 
             implementation(libs.kotlinx.coroutines.core)
             implementation(libs.kotlinx.serialization.json)
@@ -76,6 +80,9 @@ kotlin {
 
             implementation(libs.multiplatform.settings)
             implementation(libs.multiplatform.settings.coroutines)
+        }
+        iosMain.dependencies {
+            implementation(libs.ktor.client.darwin)
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
