@@ -1,6 +1,7 @@
 package com.rozoomcool.hackapp.features.auth
 
 import cafe.adriel.voyager.core.model.StateScreenModel
+import com.rozoomcool.hackapp.core.preferences.AuthRepository
 
 
 data class AuthUiState(
@@ -9,6 +10,8 @@ data class AuthUiState(
     val password: String = ""
 )
 
-class AuthScreenModel: StateScreenModel<AuthUiState>(AuthUiState()) {
+class AuthScreenModel(
+    private val authRepository: AuthRepository
+): StateScreenModel<AuthUiState>(AuthUiState()) {
 
 }

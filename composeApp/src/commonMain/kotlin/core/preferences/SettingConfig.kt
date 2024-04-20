@@ -26,5 +26,5 @@ sealed class SettingConfig<T>(
 
     override fun toString() = key
 
-    abstract val value: Flow<Int>
+    abstract val value: Flow<String>
 }

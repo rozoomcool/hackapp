@@ -134,6 +134,7 @@ private fun AuthBar(selectedTabIndex: Int, onTabClick: (index: Int) -> Unit) {
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 16.dp),
+        backgroundColor = MaterialTheme.colors.background,
         selectedTabIndex = 1,
         divider = {},
         indicator = { tabPositions ->
@@ -150,7 +151,7 @@ private fun AuthBar(selectedTabIndex: Int, onTabClick: (index: Int) -> Unit) {
                 onClick = { onTabClick(i) }) {
                 Text(
                     text = value,
-                    style = MaterialTheme.typography.h3
+                    style = MaterialTheme.typography.subtitle1
                 )
             }
         }

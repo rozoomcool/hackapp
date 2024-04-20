@@ -72,6 +72,9 @@ kotlin {
             implementation(libs.ktor.client.logging)
             implementation(libs.ktor.serialization.kotlinx.json)
 
+            implementation("io.github.aakira:napier:2.7.1")
+//            implementation("io.coil-kt:coil:2.6.0")
+
             implementation(libs.kotlinx.coroutines.core)
             implementation(libs.kotlinx.serialization.json)
 

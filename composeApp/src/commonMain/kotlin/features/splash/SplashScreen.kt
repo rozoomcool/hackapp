@@ -21,7 +21,7 @@ import kotlinx.coroutines.delay
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.painterResource
 
-object SplashScreen : Screen {
+data object SplashScreen: Screen {
     @Composable
     override fun Content() {
         val navigator = LocalNavigator.currentOrThrow
@@ -33,7 +33,9 @@ object SplashScreen : Screen {
 
 @OptIn(ExperimentalResourceApi::class)
 @Composable
-fun SplashScreenContent(navigate: () -> Unit) {
+fun SplashScreenContent(
+    navigate: () -> Unit
+) {
     val scale = remember {
         Animatable(0f)
     }
