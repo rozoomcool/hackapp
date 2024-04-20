@@ -50,6 +50,7 @@ kotlin {
 
             implementation(libs.koin.android)
             implementation(libs.androidx.preference.ktx)
+            implementation("io.coil-kt:coil:2.6.0")
 
 
         }
@@ -66,6 +67,7 @@ kotlin {
             implementation(libs.voyager.tab.navigator)
             implementation(libs.voyager.transitions)
             implementation(libs.voyager.screenmodel)
+            implementation("cafe.adriel.voyager:voyager-bottom-sheet-navigator:1.0.0")
 
             implementation(libs.ktor.client.core)
             implementation(libs.ktor.client.content.negotiation)
@@ -73,6 +75,8 @@ kotlin {
             implementation(libs.ktor.serialization.kotlinx.json)
 
             implementation("io.github.aakira:napier:2.7.1")
+            implementation("br.com.devsrsouza.compose.icons:octicons:1.1.0")
+            api("io.github.qdsfdhvh:image-loader:1.7.8")
 //            implementation("io.coil-kt:coil:2.6.0")
 
             implementation(libs.kotlinx.coroutines.core)
