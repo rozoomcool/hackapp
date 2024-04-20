@@ -11,8 +11,9 @@ val sharedModules = module {
 }
 
 val homeModule = module {
+    includes(networkModule)
     factory<HomeScreenModel> { HomeScreenModel(get()) }
-    factory<AuthScreenModel> { AuthScreenModel(get()) }
+    factory<AuthScreenModel> { AuthScreenModel(get(), get()) }
 //    factory<UniversityScreenModel> {UniversityScreenModel()}
 }
 

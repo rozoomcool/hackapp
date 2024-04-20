@@ -8,11 +8,13 @@ import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
 import androidx.compose.foundation.rememberScrollState
@@ -35,6 +37,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
@@ -52,9 +55,10 @@ import com.rozoomcool.hackapp.features.auth.AuthTab
 import com.rozoomcool.hackapp.features.university.UniversityScreen
 import compose.icons.Octicons
 import compose.icons.octicons.Home24
+import compose.icons.octicons.Search24
 import io.github.aakira.napier.log
 
-object HomeScreen: Screen {
+object HomeScreen : Screen {
     @Composable
     override fun Content() {
         val screenModel = getScreenModel<HomeScreenModel>()
@@ -80,16 +84,20 @@ fun HomeScreenContent(
     Column(
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier.fillMaxSize().padding(horizontal = 8.dp).verticalScroll(rememberScrollState())
+        modifier = Modifier.fillMaxSize().padding(horizontal = 8.dp)
+            .verticalScroll(rememberScrollState())
     ) {
         Spacer(modifier = Modifier.height(24.dp))
+
         OutlinedTextField(
             label = { Text("Поиск") },
             value = "",
             onValueChange = {},
             trailingIcon = {
-                IconButton({}) {
-                    Icon(Icons.Default.Search, null)
+                IconButton(
+                    onClick = {}
+                ) {
+                    Icon(Octicons.Search24, null)
                 }
             },
             colors = TextFieldDefaults.outlinedTextFieldColors(backgroundColor = colors.background),
@@ -99,7 +107,7 @@ fun HomeScreenContent(
         repeat(10) {
             Card(
                 modifier = Modifier.fillMaxWidth()
-                    .pointerInput(true){
+                    .pointerInput(true) {
                         this.detectTapGestures {
                             navigator.replace(UniversityScreen)
                         }

@@ -42,7 +42,8 @@ kotlin {
 
             implementation(libs.coil.compose)
 
-            implementation(libs.ktor.client.okhttp)
+            implementation("io.ktor:ktor-client-core:2.3.7")
+            implementation("io.ktor:ktor-client-cio:2.3.7")
             implementation(libs.kotlinx.coroutines.android)
 
             implementation(libs.koin.android)
@@ -129,6 +130,9 @@ android {
     dependencies {
         debugImplementation(libs.compose.ui.tooling)
     }
+}
+dependencies {
+    implementation(libs.androidx.material3.android)
 }
 
 compose.desktop {

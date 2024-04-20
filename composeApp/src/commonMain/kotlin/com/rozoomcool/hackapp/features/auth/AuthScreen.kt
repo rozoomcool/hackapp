@@ -19,6 +19,7 @@ import androidx.compose.material.TabRowDefaults
 import androidx.compose.material.TabRowDefaults.tabIndicatorOffset
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
@@ -42,6 +43,7 @@ object AuthScreen: Screen {
 
 @Composable
 private fun AuthScreenContent(screenModel: AuthScreenModel) {
+    val uiState by screenModel.state.collectAsState()
     var selectedTabIndex by remember {
         mutableIntStateOf(0)
     }
@@ -94,7 +96,7 @@ private fun AuthScreenContent(screenModel: AuthScreenModel) {
                                     value = "",
                                     onValueChange = {}
                                 )
-                                Button(onClick = { /*TODO*/ }) {
+                                Button(onClick = { screenModel.register() }) {
                                     Text("Зарегистрироваться")
                                 }
                             }
