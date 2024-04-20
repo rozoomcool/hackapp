@@ -15,6 +15,7 @@ import cafe.adriel.voyager.navigator.bottomSheet.LocalBottomSheetNavigator
 import cafe.adriel.voyager.navigator.tab.CurrentTab
 import cafe.adriel.voyager.navigator.tab.LocalTabNavigator
 import cafe.adriel.voyager.navigator.tab.Tab
+import cafe.adriel.voyager.navigator.tab.TabDisposable
 import cafe.adriel.voyager.navigator.tab.TabNavigator
 import cafe.adriel.voyager.transitions.SlideTransition
 import com.rozoomcool.hackapp.features.add.AddContentScreen
@@ -26,7 +27,15 @@ import compose.icons.octicons.PlusCircle24
 object MainScreen : Screen {
     @Composable
     override fun Content() {
-        TabNavigator(HomeTab) {
+        TabNavigator(
+            HomeTab,
+            tabDisposable = {
+                TabDisposable(
+                    navigator = it,
+                    tabs = listOf(HomeTab, AuthTab)
+                )
+            }
+        ) {
             MainScreen()
         }
     }
@@ -47,12 +56,11 @@ fun MainScreen() {
             )
         },
         bottomBar = {
-
             BottomNavigation {
                 TabNavigationItem(HomeTab)
                 BottomNavigationItem(
                     selected = false,
-                    onClick = { bottomSheetNavigator.show(AddContentScreen()) },
+                    onClick = { bottomSheetNavigator.show(AddContentScreen) },
                     icon = { Icon(Octicons.PlusCircle24, "ADD") }
                 )
                 TabNavigationItem(AuthTab)
@@ -74,5 +82,3 @@ private fun RowScope.TabNavigationItem(tab: Tab) {
         icon = { Icon(tab.options.icon!!, tab.options.title) }
     )
 }
-
-// { Icon(painter = tab.icon, contentDescription = tab.title) }

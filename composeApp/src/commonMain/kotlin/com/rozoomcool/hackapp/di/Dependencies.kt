@@ -13,7 +13,7 @@ val sharedModules = module {
 val homeModule = module {
     factory<HomeScreenModel> { HomeScreenModel(get()) }
     factory<AuthScreenModel> { AuthScreenModel(get()) }
-    factory<UniversityScreenModel> {UniversityScreenModel()}
+//    factory<UniversityScreenModel> {UniversityScreenModel()}
 }
 
 

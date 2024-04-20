@@ -9,6 +9,6 @@ data class UniversityUiState(
     val authState: String = "",
 )
 
-class UniversityScreenModel: StateScreenModel<UniversityScreenModel>(UniversityScreenModel()) {
-
+class UniversityScreenModel(): StateScreenModel<UniversityScreenModel>(UniversityScreenModel()) {
+    val uiState = UniversityUiState()
 }
