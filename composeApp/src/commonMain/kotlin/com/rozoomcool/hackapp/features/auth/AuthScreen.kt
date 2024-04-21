@@ -1,5 +1,6 @@
 package com.rozoomcool.hackapp.features.auth
 
+import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -9,17 +10,18 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.Button
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.MaterialTheme.colors
-import androidx.compose.material.OutlinedTextField
-import androidx.compose.material.Surface
-import androidx.compose.material.Tab
-import androidx.compose.material.TabRow
-import androidx.compose.material.TabRowDefaults
-import androidx.compose.material.TabRowDefaults.tabIndicatorOffset
-import androidx.compose.material.Text
+import androidx.compose.material3.Button
+import androidx.compose.material3.MaterialTheme.colorScheme
+import androidx.compose.material3.MaterialTheme.typography
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Tab
+import androidx.compose.material3.TabRow
+import androidx.compose.material3.TabRowDefaults
+import androidx.compose.material3.TabRowDefaults.tabIndicatorOffset
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -76,7 +78,7 @@ private fun AuthScreenContent(screenModel: AuthScreenModel) {
                     verticalArrangement = Arrangement.Bottom,
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    Text(text = "Dekit", style = MaterialTheme.typography.h2)
+                    Text(text = "Dekit", style = typography.displaySmall)
                     Spacer(modifier = Modifier.height(48.dp))
                     AuthBar(selectedTabIndex) { index -> selectedTabIndex = index }
                 }
@@ -88,7 +90,7 @@ private fun AuthScreenContent(screenModel: AuthScreenModel) {
                     when (screens[selectedTabIndex]) {
                         screens[0] -> {
                             Column(
-                                modifier = Modifier.fillMaxHeight(),
+                                modifier = Modifier.animateContentSize().fillMaxHeight(),
                                 verticalArrangement = Arrangement.spacedBy(16.dp),
                                 horizontalAlignment = Alignment.CenterHorizontally
                             ) {
@@ -97,14 +99,16 @@ private fun AuthScreenContent(screenModel: AuthScreenModel) {
                                     value = uiState.username,
                                     onValueChange = { value -> screenModel.changeUsername(value) },
                                     maxLines = 1,
-                                    isError = uiState.isUsernameError
+                                    isError = uiState.isUsernameError,
+                                    shape = RoundedCornerShape(12.dp)
                                 )
                                 OutlinedTextField(
                                     label = { Text(text = "Почта") },
                                     value = uiState.email,
                                     onValueChange = { value -> screenModel.changeEmail(value) },
                                     maxLines = 1,
-                                    isError = uiState.isEmailError
+                                    isError = uiState.isEmailError,
+                                    shape = RoundedCornerShape(12.dp)
                                 )
                                 OutlinedTextField(
                                     label = { Text(text = "Пароль") },
@@ -116,7 +120,8 @@ private fun AuthScreenContent(screenModel: AuthScreenModel) {
                                     keyboardOptions = KeyboardOptions(
                                         keyboardType = KeyboardType.Password,
                                         imeAction = ImeAction.Done
-                                    )
+                                    ),
+                                    shape = RoundedCornerShape(12.dp)
                                 )
                                 Button(onClick = {
                                     screenModel.signUp()
@@ -137,7 +142,8 @@ private fun AuthScreenContent(screenModel: AuthScreenModel) {
                                     value = uiState.username,
                                     onValueChange = { value -> screenModel.changeUsername(value) },
                                     maxLines = 1,
-                                    isError = uiState.isUsernameError
+                                    isError = uiState.isUsernameError,
+                                    shape = RoundedCornerShape(12.dp)
                                 )
                                 OutlinedTextField(
                                     label = { Text(text = "Пароль") },
@@ -149,7 +155,8 @@ private fun AuthScreenContent(screenModel: AuthScreenModel) {
                                     keyboardOptions = KeyboardOptions(
                                         keyboardType = KeyboardType.Password,
                                         imeAction = ImeAction.Done
-                                    )
+                                    ),
+                                    shape = RoundedCornerShape(12.dp)
                                 )
                                 Button(onClick = { /*TODO*/ }) {
                                     Text("Авторизация")
@@ -169,14 +176,14 @@ private fun AuthBar(selectedTabIndex: Int, onTabClick: (index: Int) -> Unit) {
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 16.dp),
-        backgroundColor = MaterialTheme.colors.background,
+        containerColor = colorScheme.surface,
         selectedTabIndex = 1,
         divider = {},
         indicator = { tabPositions ->
             if (selectedTabIndex < tabPositions.size) {
-                TabRowDefaults.Indicator(
-                    Modifier.tabIndicatorOffset(tabPositions[selectedTabIndex]),
-                    color = colors.primary
+                TabRowDefaults.PrimaryIndicator(
+                    Modifier.fillMaxWidth().tabIndicatorOffset(tabPositions[selectedTabIndex]),
+                    color = colorScheme.primary
                 )
             }
         }
@@ -187,7 +194,7 @@ private fun AuthBar(selectedTabIndex: Int, onTabClick: (index: Int) -> Unit) {
                 onClick = { onTabClick(i) }) {
                 Text(
                     text = value,
-                    style = MaterialTheme.typography.h6
+                    style = typography.titleLarge
                 )
             }
         }

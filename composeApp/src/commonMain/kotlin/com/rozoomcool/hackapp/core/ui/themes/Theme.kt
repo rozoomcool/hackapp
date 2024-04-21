@@ -1,25 +1,18 @@
-package com.santimattius.kmp.hackatonapp.core.ui.themes
+package com.rozoomcool.hackapp.core.ui.themes
 
 import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.darkColors
-import androidx.compose.material.lightColors
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.darkColorScheme
+import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
-import com.santimattius.kmp.entertainment.core.ui.themes.Pink40
-import com.santimattius.kmp.entertainment.core.ui.themes.Pink80
-import com.santimattius.kmp.entertainment.core.ui.themes.Purple40
-import com.santimattius.kmp.entertainment.core.ui.themes.Purple80
-import com.santimattius.kmp.entertainment.core.ui.themes.PurpleGrey40
-import com.santimattius.kmp.entertainment.core.ui.themes.PurpleGrey80
-import com.santimattius.kmp.entertainment.core.ui.themes.Typography
 
-private val DarkColorScheme = darkColors(
+private val DarkColorScheme = darkColorScheme(
     primary = Purple80,
     secondary = PurpleGrey80
 )
 
-private val LightColorScheme = lightColors(
+private val LightColorScheme = lightColorScheme(
     primary = Color(0xFF358c96),
     secondary = PurpleGrey40,
     onPrimary = Color.White,
@@ -33,7 +26,7 @@ fun AppTheme(
 ) {
     val colorScheme = if (darkTheme) DarkColorScheme else LightColorScheme
     MaterialTheme(
-        colors = colorScheme,
+        colorScheme = colorScheme,
         typography = Typography,
         content = content
     )

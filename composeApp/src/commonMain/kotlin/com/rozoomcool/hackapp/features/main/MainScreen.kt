@@ -1,14 +1,20 @@
 package com.rozoomcool.hackapp.features.main
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.RowScope
-import androidx.compose.material.BottomNavigation
-import androidx.compose.material.BottomNavigationItem
-import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme.colors
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.BottomAppBar
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme.colorScheme
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
@@ -42,6 +48,7 @@ object MainScreen : Screen {
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainScreen() {
     val bottomSheetNavigator = LocalBottomSheetNavigator.current
@@ -49,17 +56,15 @@ fun MainScreen() {
     Scaffold(
         topBar = {
             TopAppBar(
-                backgroundColor = colors.background,
-                contentColor = colors.onBackground,
                 title = { Text("Dekit") },
                 actions = {
                 }
             )
         },
         bottomBar = {
-            BottomNavigation {
+            NavigationBar {
                 TabNavigationItem(HomeTab)
-                BottomNavigationItem(
+                NavigationBarItem(
                     selected = false,
                     onClick = { bottomSheetNavigator.show(AddContentScreen) },
                     icon = { Icon(Octicons.PlusCircle24, "ADD") }
@@ -68,8 +73,9 @@ fun MainScreen() {
             }
         }
     ) {
-
-        CurrentTab()
+        Box(
+            modifier = Modifier.fillMaxSize().padding(it)
+        ) { CurrentTab() }
     }
 }
 
@@ -77,7 +83,7 @@ fun MainScreen() {
 private fun RowScope.TabNavigationItem(tab: Tab) {
     val tabNavigator = LocalTabNavigator.current
 
-    BottomNavigationItem(
+    NavigationBarItem(
         selected = tabNavigator.current == tab,
         onClick = { tabNavigator.current = tab },
         icon = { Icon(tab.options.icon!!, tab.options.title) }

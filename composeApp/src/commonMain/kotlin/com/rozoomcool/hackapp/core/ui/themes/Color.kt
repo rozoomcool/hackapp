@@ -1,4 +1,4 @@
-package com.santimattius.kmp.entertainment.core.ui.themes
+package com.rozoomcool.hackapp.core.ui.themes
 
 import androidx.compose.ui.graphics.Color
 

@@ -132,7 +132,7 @@ fun HomeScreenContent(
                         horizontalAlignment = Alignment.Start,
                         verticalArrangement = Arrangement.Top
                     ) {
-                        Text(university.name, style = typography.body1)
+                        Text(university.name, style = typography.bodyLarge)
                         Text(university.location)
                     }
                 }

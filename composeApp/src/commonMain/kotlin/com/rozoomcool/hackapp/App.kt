@@ -1,4 +1,4 @@
-package com.rozoomcool.hackapp.com.rozoomcool.hackapp
+package com.rozoomcool.hackapp
 
 import androidx.compose.runtime.Composable
 import com.rozoomcool.hackapp.di.applicationModules

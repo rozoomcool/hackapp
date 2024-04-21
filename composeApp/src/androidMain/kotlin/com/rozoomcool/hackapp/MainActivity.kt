@@ -10,7 +10,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.preference.PreferenceManager
-import com.rozoomcool.hackapp.com.rozoomcool.hackapp.App
 import com.russhwolf.settings.Settings
 import com.russhwolf.settings.SharedPreferencesSettings
 import io.github.aakira.napier.DebugAntilog
