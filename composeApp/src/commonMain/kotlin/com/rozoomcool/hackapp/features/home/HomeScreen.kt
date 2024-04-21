@@ -75,15 +75,12 @@ fun HomeScreenContent(
     val navigator = LocalNavigator.currentOrThrow
     val sc = rememberCoroutineScope()
     val state by screenModel.uiState.collectAsState()
-    val toaster = rememberToasterState {  }
 
     LaunchedEffect(key1 = true) {
         log(tag = ":::::::::::::") { "$state" }
         if (state.authState == AuthState.NONAUTHORIZED.name) {
             navigator.replaceAll(AuthTab)
         }
-        delay(1000)
-        toaster.show("kjfgklfdjsklgj")
 
     }
 
@@ -115,7 +112,7 @@ fun HomeScreenContent(
                 modifier = Modifier.fillMaxWidth()
                     .pointerInput(true) {
                         this.detectTapGestures {
-                            navigator.replace(UniversityScreen)
+                            navigator.push(UniversityScreen)
                         }
                     }) {
                 Column(
