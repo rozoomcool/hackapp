@@ -20,15 +20,17 @@ import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.Card
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.MaterialTheme.colors
-import androidx.compose.material.OutlinedTextField
-import androidx.compose.material.Text
-import androidx.compose.material.TextFieldDefaults
+import androidx.compose.material3.Card
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme.colorScheme
+import androidx.compose.material3.MaterialTheme.typography
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -74,13 +76,9 @@ fun HomeScreenContent(
 ) {
     val navigator = LocalNavigator.currentOrThrow
     val sc = rememberCoroutineScope()
-    val state by screenModel.uiState.collectAsState()
+    val uiState by screenModel.state.collectAsState()
 
     LaunchedEffect(key1 = true) {
-        log(tag = ":::::::::::::") { "$state" }
-        if (state.authState == AuthState.NONAUTHORIZED.name) {
-            navigator.replaceAll(AuthTab)
-        }
 
     }
 
@@ -103,11 +101,11 @@ fun HomeScreenContent(
                     Icon(Octicons.Search24, null)
                 }
             },
-            colors = TextFieldDefaults.outlinedTextFieldColors(backgroundColor = colors.background),
+            colors = OutlinedTextFieldDefaults.colors(),
             shape = RoundedCornerShape(16.dp)
         )
         Spacer(modifier = Modifier.height(24.dp))
-        repeat(10) {
+        uiState.universities.forEachIndexed {index, university ->
             Card(
                 modifier = Modifier.fillMaxWidth()
                     .pointerInput(true) {
@@ -120,13 +118,13 @@ fun HomeScreenContent(
                     horizontalAlignment = Alignment.Start,
                 ) {
                     Box(
-                        modifier = Modifier.fillMaxWidth().height(86.dp).background(colors.primary)
+                        modifier = Modifier.fillMaxWidth().height(100.dp).background(colorScheme.primary)
                     ) {
                         NetworkImage(
                             modifier = Modifier.fillMaxWidth(),
-                            imageUrl = "https://ytimg.googleusercontent.com/vi/w6bUhUuio5M/maxresdefault.jpg",
+                            imageUrl = university.avatar,
                             contentDescription = null,
-                            contentScale = ContentScale.FillWidth
+                            contentScale = ContentScale.FillBounds
                         )
                     }
                     Column(
@@ -134,8 +132,8 @@ fun HomeScreenContent(
                         horizontalAlignment = Alignment.Start,
                         verticalArrangement = Arrangement.Top
                     ) {
-                        Text("Чеченский Государственный университет")
-                        Text("г. Грозный")
+                        Text(university.name, style = typography.body1)
+                        Text(university.location)
                     }
                 }
             }

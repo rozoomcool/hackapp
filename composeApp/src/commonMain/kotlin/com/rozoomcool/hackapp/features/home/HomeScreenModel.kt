@@ -2,30 +2,30 @@ package com.rozoomcool.hackapp.features.home
 
 import cafe.adriel.voyager.core.model.StateScreenModel
 import cafe.adriel.voyager.core.model.screenModelScope
-import com.rozoomcool.hackapp.core.preferences.AuthRepository
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.stateIn
+import com.rozoomcool.hackapp.core.data.model.University
+import com.rozoomcool.hackapp.core.network.repository.UniversityRepository
+import kotlinx.coroutines.launch
 
 
 data class HomeUiState(
-    val isLoading: Boolean = false,
-    val hasError: Boolean = false,
-    val authState: String = "",
+    val universities: List<University> = emptyList()
 )
 
 class HomeScreenModel(
-    private val authRepository: AuthRepository,
+    private val universityRepository: UniversityRepository,
 ) : StateScreenModel<HomeUiState>(HomeUiState()) {
 
-    //    val uiState = HomeUiState(authState = authRepository.authState)
-    val uiState = authRepository.authState.map { HomeUiState(authState = it) }.stateIn(
-        scope = screenModelScope,
-        started = SharingStarted.WhileSubscribed(5_000),
-        initialValue = HomeUiState(),
-    )
+    init {
+        screenModelScope.launch {
+            mutableState.value = state.value.copy(universities = universityRepository.getUniversities())
+        }
+    }
 
-    fun signIn() = authRepository.signIn()
-
-    fun signOut() = authRepository.signOut()
 }
+
+
+//val uiState = authRepository.authState.map { HomeUiState(authState = it) }.stateIn(
+//    scope = screenModelScope,
+//    started = SharingStarted.WhileSubscribed(5_000),
+//    initialValue = HomeUiState(),
+//)

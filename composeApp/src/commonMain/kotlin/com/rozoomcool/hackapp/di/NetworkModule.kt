@@ -1,6 +1,7 @@
 package com.rozoomcool.hackapp.di
 
 import com.rozoomcool.hackapp.core.network.ktorHttpClient
+import com.rozoomcool.hackapp.core.network.repository.UniversityRepository
 import com.rozoomcool.hackapp.core.network.repository.UserRepository
 import org.koin.core.qualifier.qualifier
 import org.koin.dsl.module
@@ -18,4 +19,5 @@ val networkModule = module{
         )
     }
     single{UserRepository(get())}
+    single{UniversityRepository(get())}
 }

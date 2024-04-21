@@ -8,6 +8,6 @@ data class Author(
     val username: String,
     val email: String,
     val role: String,
-    val university: University,
-    val avatar: String,
+    val university: University?,
+    val avatar: String?,
 )
