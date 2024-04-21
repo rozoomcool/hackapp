@@ -76,7 +76,7 @@ fun UniversityScreenContent(
                 ) {
                     Icon(Octicons.Location16, null)
                     Spacer(Modifier.width(2.dp))
-                    Text(university.location, style = typography.bodyLarge)
+                    Text(university?.location ?: "", style = typography.bodyLarge)
                 }
                 Spacer(Modifier.height(4.dp))
                 Text("  ${university.description}", style = typography.bodyMedium)

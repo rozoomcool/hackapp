@@ -7,5 +7,5 @@ data class Faculty(
     val id: Long,
     val name: String,
     val description: String,
-    val university: Long,
+//    val university: Long,
 )

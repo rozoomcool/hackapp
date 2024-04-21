@@ -53,7 +53,13 @@ kotlin {
 
             implementation(libs.koin.android)
             implementation(libs.androidx.preference.ktx)
-            implementation("io.coil-kt:coil:2.6.0")
+            implementation("io.coil-kt:coil-compose:2.6.0")
+            implementation("com.squareup.okhttp3:okhttp:4.12.0")
+            implementation("com.squareup.picasso:picasso:2.71828")
+//            implementation("com.google.vr:sdk-base:1.20.0")
+//            implementation("com.google.vr:sdk-panowidget:1.20.0")
+            implementation("org.rajawali3d:rajawali:1.1.970")
+//            implementation("io.coil-kt:coil:2.6.0")
 
 
         }
@@ -87,7 +93,6 @@ kotlin {
             implementation("io.github.aakira:napier:2.7.1")
             implementation("br.com.devsrsouza.compose.icons:octicons:1.1.0")
             api("io.github.qdsfdhvh:image-loader:1.7.8")
-//            implementation("io.coil-kt:coil:2.6.0")
 
             implementation(libs.kotlinx.coroutines.core)
             implementation(libs.kotlinx.serialization.json)

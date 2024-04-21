@@ -3,6 +3,8 @@ package com.rozoomcool.hackapp.core.ui.components
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import io.github.aakira.napier.log
+import org.koin.compose.koinInject
 
 @Composable
 internal expect fun __NetworkImage(
@@ -19,8 +21,11 @@ internal fun NetworkImage(
     contentScale: ContentScale,
     contentDescription: String? = null,
 ) {
+    val baseUrl = koinInject<String>()
+    val imgUrl = "$baseUrl/media/$imageUrl"
+    log(tag = ":::::::::") { imgUrl }
     __NetworkImage(
-        imageUrl = imageUrl,
+        imageUrl = imgUrl,
         modifier = modifier,
         contentScale = contentScale,
         contentDescription = contentDescription

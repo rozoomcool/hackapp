@@ -19,11 +19,11 @@ class UniversityRepository(
 
     @OptIn(InternalAPI::class)
     suspend fun getUniversities(): List<University> {
-        val response = client.get("api/universities/") {
+        val response = client.get("/university") {
             contentType(ContentType.Application.Json)
         }
         val body = response.bodyAsText()
-//        log(tag = "_UNIVERSITYREPOSITORY_") {body}
+        log(tag = "_UNIVERSITYREPOSITORY_") {body}
 //        log(tag = "_UNIVERSITYREPOSITORY_") {Json.decodeFromString(ListSerializer(University.serializer()), body).toString()}
         return Json.decodeFromString(ListSerializer(University.serializer()), body)
     }

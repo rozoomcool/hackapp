@@ -7,7 +7,7 @@ import org.koin.core.qualifier.qualifier
 import org.koin.dsl.module
 
 val networkModule = module{
-    single(qualifier(NetworkQualifiers.BaseUrl)) { "http://localhost:8000" }
+    single<String> { "http://localhost" }
     single {
         ktorHttpClient(
 //            baseUrl = get(
@@ -15,7 +15,7 @@ val networkModule = module{
 //                    NetworkQualifiers.BaseUrl
 //                )
 //            )
-            baseUrl = "http://192.168.1.113:8000/"
+            baseUrl = "http://192.168.1.113/"
         )
     }
     single{UserRepository(get())}

@@ -41,6 +41,7 @@ import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import com.rozoomcool.hackapp.core.data.model.Faculty
 import com.rozoomcool.hackapp.core.ui.components.NetworkImage
+import com.rozoomcool.hackapp.features.panorama.PanoramaScreen
 import com.rozoomcool.hackapp.features.university.UniversityScreen
 import compose.icons.Octicons
 import compose.icons.octicons.Search24
@@ -102,7 +103,8 @@ fun HomeScreenContent(
                 modifier = Modifier.fillMaxWidth()
                     .pointerInput(true) {
                         this.detectTapGestures {
-                            navigator.push(UniversityScreen(university.id))
+//                            navigator.push(UniversityScreen(university.id))
+                            navigator.push(PanoramaScreen)
                         }
                     }) {
                 Column(
@@ -111,16 +113,10 @@ fun HomeScreenContent(
                 ) {
                     Box(
                         modifier = Modifier.fillMaxWidth().height(146.dp)
-                            .background(colorScheme.primary)
                     ) {
                         NetworkImage(
                             modifier = Modifier.fillMaxWidth(),
-                            imageUrl = university.avatar.apply {
-                                replace(
-                                    "localhost",
-                                    "192.168.1.113"
-                                )
-                            },
+                            imageUrl = university.avatar,
                             contentDescription = null,
                             contentScale = ContentScale.FillWidth
                         )
@@ -132,7 +128,7 @@ fun HomeScreenContent(
                     ) {
                         Text(university.name, style = typography.titleMedium)
                         Spacer(Modifier.height(2.dp))
-                        Text(university.location, style = typography.bodyLarge)
+                        Text(university?.location ?: "", style = typography.bodyLarge)
                         Spacer(Modifier.height(2.dp))
                         Text(university.description, style = typography.bodySmall, maxLines = 4, overflow = TextOverflow.Ellipsis)
 //                        FlowRowFaculties(university.faculties)
