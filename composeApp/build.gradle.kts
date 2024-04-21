@@ -4,7 +4,9 @@ plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsCompose)
-    alias(libs.plugins.kotlinSerialization)
+//    alias(libs.plugins.kotlinSerialization)
+    kotlin("plugin.serialization") version "1.9.23"
+
 }
 
 kotlin {
@@ -74,6 +76,13 @@ kotlin {
             implementation(libs.ktor.client.content.negotiation)
             implementation(libs.ktor.client.logging)
             implementation(libs.ktor.serialization.kotlinx.json)
+            implementation(libs.ktor.client.serialization)
+            implementation(libs.ktor.serialization.kotlinx.json)
+            implementation("io.ktor:ktor-client-cio:2.3.7")
+//            implementation("io.ktor:ktor-client-logging:1.6.7")
+            implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.2")
+
+            implementation("io.github.dokar3:sonner:0.3.5")
 
             implementation("io.github.aakira:napier:2.7.1")
             implementation("br.com.devsrsouza.compose.icons:octicons:1.1.0")

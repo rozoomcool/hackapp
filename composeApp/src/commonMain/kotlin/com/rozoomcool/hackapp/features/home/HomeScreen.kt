@@ -49,6 +49,7 @@ import cafe.adriel.voyager.navigator.Navigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import cafe.adriel.voyager.navigator.tab.Tab
 import cafe.adriel.voyager.navigator.tab.TabOptions
+import com.dokar.sonner.rememberToasterState
 import com.rozoomcool.hackapp.core.preferences.AuthState
 import com.rozoomcool.hackapp.core.ui.components.NetworkImage
 import com.rozoomcool.hackapp.features.auth.AuthTab
@@ -57,6 +58,7 @@ import compose.icons.Octicons
 import compose.icons.octicons.Home24
 import compose.icons.octicons.Search24
 import io.github.aakira.napier.log
+import kotlinx.coroutines.delay
 
 object HomeScreen : Screen {
     @Composable
@@ -73,12 +75,16 @@ fun HomeScreenContent(
     val navigator = LocalNavigator.currentOrThrow
     val sc = rememberCoroutineScope()
     val state by screenModel.uiState.collectAsState()
+    val toaster = rememberToasterState {  }
 
     LaunchedEffect(key1 = true) {
         log(tag = ":::::::::::::") { "$state" }
         if (state.authState == AuthState.NONAUTHORIZED.name) {
             navigator.replaceAll(AuthTab)
         }
+        delay(1000)
+        toaster.show("kjfgklfdjsklgj")
+
     }
 
     Column(

@@ -15,6 +15,7 @@ import com.russhwolf.settings.Settings
 import com.russhwolf.settings.SharedPreferencesSettings
 import io.github.aakira.napier.DebugAntilog
 import io.github.aakira.napier.Napier
+import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 
 class MainActivity : ComponentActivity() {
@@ -36,6 +37,7 @@ class MainActivity : ComponentActivity() {
 }
 
 fun androidModule(sharedPref: SharedPreferences) = module {
+    single { androidContext() }
     single<Settings> {
         SharedPreferencesSettings(sharedPref)
     }
