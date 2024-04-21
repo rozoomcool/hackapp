@@ -6,7 +6,7 @@ import kotlinx.serialization.Serializable
 data class University(
     val id: Long,
     val faculties: List<Faculty>,
-    val posts: List<Post>,
+//    val posts: List<Post>,
     val name: String,
     val location: String,
     val description: String,

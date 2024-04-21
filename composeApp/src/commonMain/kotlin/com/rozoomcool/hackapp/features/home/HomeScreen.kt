@@ -2,21 +2,16 @@ package com.rozoomcool.hackapp.features.home
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectTapGestures
-import androidx.compose.foundation.gestures.rememberScrollableState
-import androidx.compose.foundation.gestures.scrollable
-import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
-import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
@@ -27,40 +22,29 @@ import androidx.compose.material3.MaterialTheme.colorScheme
 import androidx.compose.material3.MaterialTheme.typography
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextFieldDefaults
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Search
+import androidx.compose.material3.AssistChip
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.koin.getScreenModel
 import cafe.adriel.voyager.navigator.LocalNavigator
-import cafe.adriel.voyager.navigator.Navigator
 import cafe.adriel.voyager.navigator.currentOrThrow
-import cafe.adriel.voyager.navigator.tab.Tab
-import cafe.adriel.voyager.navigator.tab.TabOptions
-import com.dokar.sonner.rememberToasterState
-import com.rozoomcool.hackapp.core.preferences.AuthState
+import com.rozoomcool.hackapp.core.data.model.Faculty
 import com.rozoomcool.hackapp.core.ui.components.NetworkImage
-import com.rozoomcool.hackapp.features.auth.AuthTab
 import com.rozoomcool.hackapp.features.university.UniversityScreen
 import compose.icons.Octicons
-import compose.icons.octicons.Home24
 import compose.icons.octicons.Search24
 import io.github.aakira.napier.log
-import kotlinx.coroutines.delay
 
 object HomeScreen : Screen {
     @Composable
@@ -105,12 +89,20 @@ fun HomeScreenContent(
             shape = RoundedCornerShape(16.dp)
         )
         Spacer(modifier = Modifier.height(24.dp))
-        uiState.universities.forEachIndexed {index, university ->
+        uiState.universities.forEachIndexed { index, university ->
+            log(tag = "_HOMESCREEN_") {
+                university.avatar.apply {
+                    replace(
+                        "localhost",
+                        "192.168.1.113"
+                    )
+                }
+            }
             Card(
                 modifier = Modifier.fillMaxWidth()
                     .pointerInput(true) {
                         this.detectTapGestures {
-                            navigator.push(UniversityScreen)
+                            navigator.push(UniversityScreen(university.id))
                         }
                     }) {
                 Column(
@@ -118,22 +110,33 @@ fun HomeScreenContent(
                     horizontalAlignment = Alignment.Start,
                 ) {
                     Box(
-                        modifier = Modifier.fillMaxWidth().height(100.dp).background(colorScheme.primary)
+                        modifier = Modifier.fillMaxWidth().height(146.dp)
+                            .background(colorScheme.primary)
                     ) {
                         NetworkImage(
                             modifier = Modifier.fillMaxWidth(),
-                            imageUrl = university.avatar,
+                            imageUrl = university.avatar.apply {
+                                replace(
+                                    "localhost",
+                                    "192.168.1.113"
+                                )
+                            },
                             contentDescription = null,
-                            contentScale = ContentScale.FillBounds
+                            contentScale = ContentScale.FillWidth
                         )
                     }
                     Column(
-                        modifier = Modifier.padding(horizontal = 4.dp),
+                        modifier = Modifier.padding(horizontal = 8.dp),
                         horizontalAlignment = Alignment.Start,
                         verticalArrangement = Arrangement.Top
                     ) {
-                        Text(university.name, style = typography.bodyLarge)
-                        Text(university.location)
+                        Text(university.name, style = typography.titleMedium)
+                        Spacer(Modifier.height(2.dp))
+                        Text(university.location, style = typography.bodyLarge)
+                        Spacer(Modifier.height(2.dp))
+                        Text(university.description, style = typography.bodySmall, maxLines = 4, overflow = TextOverflow.Ellipsis)
+//                        FlowRowFaculties(university.faculties)
+                        Spacer(Modifier.height(8.dp))
                     }
                 }
             }
@@ -143,4 +146,21 @@ fun HomeScreenContent(
         Spacer(modifier = Modifier.height(86.dp))
     }
 
+}
+
+@OptIn(ExperimentalLayoutApi::class)
+@Composable
+private fun FlowRowFaculties(faculties: List<Faculty>) {
+    FlowRow(modifier = Modifier.padding(8.dp)) {
+        faculties.forEach {
+            AssistChip(onClick = {}, label = { Text(it.name, style = typography.labelSmall) })
+        }
+    }
+}
+
+@Composable
+private fun FacultyItem(name: String) {
+    Box(modifier = Modifier.padding(4.dp)) {
+        Text(name, style = typography.labelLarge)
+    }
 }

@@ -28,4 +28,13 @@ class UniversityRepository(
         return Json.decodeFromString(ListSerializer(University.serializer()), body)
     }
 
+    @OptIn(InternalAPI::class)
+    suspend fun getUniversity(id: Long): University {
+        val response = client.get("api/universities/${id}/") {
+            contentType(ContentType.Application.Json)
+        }
+        val body = response.bodyAsText()
+        return Json.decodeFromString(University.serializer(), body)
+    }
+
 }

@@ -15,7 +15,7 @@ val networkModule = module{
 //                    NetworkQualifiers.BaseUrl
 //                )
 //            )
-            baseUrl = "http://10.3.1.138/"
+            baseUrl = "http://192.168.1.113:8000/"
         )
     }
     single{UserRepository(get())}
